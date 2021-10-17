@@ -1,8 +1,3 @@
-// 外部APIから取得した日付データ「yyyy-MM-dd」は date-fnsのformat関数だとうまくフォーマットできない
-// そのためmomentというライブラリを使用する
-// 「npm install moment」を実施する必要あり
-import moment from "moment";
-
 /**
  * 従業員情報を表すクラス.
  *

@@ -1,9 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { Employee } from "@/types/employee";
-// 使うためには「
-// npm install axios --save
-//」を行う
+import config from "@/const/const";
+// 使うためには「npm install axios --save」を行う
 import axios from "axios";
 
 Vue.use(Vuex);
@@ -23,7 +22,7 @@ export default new Vuex.Store({
     async getEmployeeList(context) {
       // WebAPIから従業員一覧情報を取得する
       const response = await axios.get(
-        "http://153.127.48.168:8080/ex-emp-api/employee/employees"
+        `${config.EMP_WEBAPI_URL}/employee/employees`
       );
       // 取得したJSONデータをコンソールに出力して確認
       console.dir("response:" + JSON.stringify(response));
@@ -46,28 +45,9 @@ export default new Vuex.Store({
       // console.dir("payload:" + JSON.stringify(payload));
       console.log("totalEmployeeCount:" + payload.totalEmployeeCount);
       // payloadの中(WebAPIから取得したJSON)のtotalEmployeeCountをstateのtotalEmployeeCountに代入する
-      state.totalEmployeeCount = payload.totalEmployees;
-      // payloadの中(WebAPIから取得したJSON)のemployeesをfor..of文で回し１回１回Employeeオブジェクト生成し、
-      // stateのemployeesにpushする
-      state.employees = new Array<Employee>();
-      for (const employee of payload.employees) {
-        state.employees.push(
-          new Employee(
-            employee.id,
-            employee.name,
-            employee.image,
-            employee.gender,
-            employee.hireDate,
-            employee.mailAddress,
-            employee.zipCode,
-            employee.address,
-            employee.telephone,
-            employee.salary,
-            employee.characteristics,
-            employee.dependentsCount
-          )
-        );
-      }
+      state.totalEmployeeCount = payload.totalEmployeeCount;
+      // payloadの中(WebAPIから取得したJSON)のemployeesをstateのemployeesに代入する
+      state.employees = payload.employees;
     },
   }, // end mutations
   getters: {
@@ -78,7 +58,7 @@ export default new Vuex.Store({
      * @returns 従業員数
      */
     getAllEmployeeCount(state) {
-      return state.employees.length;
+      return state.totalEmployeeCount;
     },
     /**
      * 全従業員一覧を返す.

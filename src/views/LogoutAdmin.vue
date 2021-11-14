@@ -1,3 +1,6 @@
+<template>
+  <div>ログアウト中・・・</div>
+</template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import config from "@/const/const";

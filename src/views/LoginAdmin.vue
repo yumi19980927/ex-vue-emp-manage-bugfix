@@ -61,7 +61,9 @@ import axios from "axios";
  */
 @Component
 export default class LoginAdmin extends Vue {
+  // メールアドレス
   private mailAddress = "";
+  // パスワード
   private password = "";
 
   /**

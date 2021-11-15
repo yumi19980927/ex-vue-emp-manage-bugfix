@@ -112,6 +112,7 @@ import axios from "axios";
  */
 @Component
 export default class EmployeeDetail extends Vue {
+  // 従業員情報
   // 初期値で初期化しなければtemplateでidなどが存在しないということでエラーとなる
   private currentEmployee = new Employee(
     0,
@@ -128,8 +129,11 @@ export default class EmployeeDetail extends Vue {
     0
   );
   // currentEmployee!: Employee;
+  // エラーメッセージ
   private errorMessage = "";
+  // 画像
   private currentEmployeeImage = "";
+  // 扶養人数
   private currentDependentsCount = 0;
 
   /**

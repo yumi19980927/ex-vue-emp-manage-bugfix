@@ -71,16 +71,19 @@ import { Component, Vue } from "vue-property-decorator";
 import config from "@/const/const";
 import axios from "axios";
 
+/**
+ * 管理者登録をする画面.
+ */
 @Component
 export default class RegisterAdmin extends Vue {
   // 姓
-  lastName = "";
+  private lastName = "";
   // 名
-  firstName = "";
+  private firstName = "";
   // メールアドレス
-  mailAddress = "";
+  private mailAddress = "";
   // パスワード
-  password = "";
+  private password = "";
 
   /**
    * 管理者情報を登録する.

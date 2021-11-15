@@ -56,10 +56,13 @@ import { Component, Vue } from "vue-property-decorator";
 import config from "@/const/const";
 import axios from "axios";
 
+/**
+ * ログインをする画面.
+ */
 @Component
 export default class LoginAdmin extends Vue {
-  mailAddress = "";
-  password = "";
+  private mailAddress = "";
+  private password = "";
 
   /**
    * ログインする.

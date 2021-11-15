@@ -38,12 +38,15 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { Employee } from "@/types/employee";
+/**
+ * 従業員一覧を表示する画面.
+ */
 @Component
 export default class EmployeeList extends Vue {
   // 従業員一覧
-  currentEmployeeList: Array<Employee> = [];
+  private currentEmployeeList: Array<Employee> = [];
   // 従業員数
-  employeeCount = 0;
+  private employeeCount = 0;
 
   /**
    * Vuexストアのアクション経由で非同期でWebAPIから従業員一覧を取得する.

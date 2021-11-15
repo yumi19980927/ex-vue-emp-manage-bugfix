@@ -107,14 +107,30 @@ import config from "@/const/const";
 import { Employee } from "@/types/employee";
 import axios from "axios";
 
+/**
+ * 従業員詳細を表示する画面.
+ */
 @Component
 export default class EmployeeDetail extends Vue {
-  // !はこの変数がnullでないことを保証する(Non-null assertion operator)
-  // !がないと、update時の「this.currentEmployee.id」部分警告が出てしまうため必要
-  currentEmployee!: Employee;
-  errorMessage = "";
-  currentEmployeeImage = "";
-  currentDependentsCount = 0;
+  // 初期値で初期化しなければtemplateでidなどが存在しないということでエラーとなる
+  private currentEmployee = new Employee(
+    0,
+    "XXXX",
+    "/noImage.png",
+    "XXXX",
+    new Date(2020, 0, 1),
+    "XXXX",
+    "XXXX",
+    "XXXX",
+    "XXXX",
+    0,
+    "XXXX",
+    0
+  );
+  // currentEmployee!: Employee;
+  private errorMessage = "";
+  private currentEmployeeImage = "";
+  private currentDependentsCount = 0;
 
   /**
    * VuexストアのGetter経由で受け取ったリクエストパラメータのIDから１件の従業員情報を取得する.

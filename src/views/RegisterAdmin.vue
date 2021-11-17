@@ -5,6 +5,7 @@
         <span class="error">{{ emailError }}</span>
         <div class="row">
           <div class="input-field col s6">
+            <span class="errorMessage">{{ errorLastName }} </span>
             <input
               id="last_name"
               type="text"
@@ -15,6 +16,7 @@
             <label for="last_name">姓</label>
           </div>
           <div class="input-field col s6">
+            <span class="errorMessage">{{ errorFirstName }} </span>
             <input
               id="first_name"
               type="text"
@@ -27,6 +29,7 @@
         </div>
         <div class="row">
           <div class="input-field col s12">
+            <span class="errorMessage">{{ errorMailaddress }} </span>
             <input
               id="email"
               type="email"
@@ -39,6 +42,7 @@
         </div>
         <div class="row">
           <div class="input-field col s12">
+            <span class="errorMessage">{{ errorPass }} </span>
             <input
               id="password"
               type="password"
@@ -79,14 +83,22 @@ import axios from "axios";
 export default class RegisterAdmin extends Vue {
   // 姓
   private lastName = "";
+  //姓未入力時のエラーメッセージ
+  private errorLastName = "";
   // 名
   private firstName = "";
+  //名未入力時のエラーメッセージ
+  private errorFirstName = "";
   // メールアドレス
   private mailAddress = "";
+  //メールアドレス未入力時のエラーメッセージ
+  private errorMailaddress = "";
   // パスワード
   private password = "";
   //email重複のエラーメッセージ
   private emailError = "";
+  //パスワード未入力時のエラーメッセージ
+  private errorPass = "";
 
   /**
    * 管理者情報を登録する.
@@ -96,6 +108,27 @@ export default class RegisterAdmin extends Vue {
    * @returns Promiseオブジェクト
    */
   async registerAdmin(): Promise<void> {
+    let hasErrors = false;
+    if (this.lastName === "") {
+      this.errorLastName = "姓を入力してください";
+      hasErrors = true;
+    }
+    if (this.firstName === "") {
+      this.errorFirstName = "名を入力してください";
+      hasErrors = true;
+    }
+    if (this.mailAddress === "") {
+      this.errorMailaddress = "メールアドレスを入力してください";
+      hasErrors = true;
+    }
+    if (this.password === "") {
+      this.errorPass = "パスワードを入力してください";
+      hasErrors = true;
+    }
+    if (hasErrors === true) {
+      return;
+    }
+
     // 管理者登録処理
     const response = await axios.post(`${config.EMP_WEBAPI_URL}/insert`, {
       name: this.lastName + " " + this.firstName,

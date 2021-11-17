@@ -17,7 +17,7 @@
             <tr>
               <th nowrap>従業員名</th>
               <td>
-                <span v-html="currentEmployee.name"></span>
+                <span>{{ currentEmployee.name }}</span>
               </td>
             </tr>
             <tr>
@@ -29,45 +29,50 @@
             <tr>
               <th nowrap>性別</th>
               <td>
-                <span v-html="currentEmployee.gender"></span>
+                <span>{{ currentEmployee.gender }}</span>
               </td>
             </tr>
             <tr>
               <th nowrap>入社日</th>
-              <td><span v-html="currentEmployee.hireDate"></span></td>
+              <td>
+                <span>{{ currentEmployee.hireDate }}</span>
+              </td>
             </tr>
             <tr>
               <th nowrap>メールアドレス</th>
               <td>
-                <span v-html="currentEmployee.mailAddress"></span>
+                <span>{{ currentEmployee.mailAddress }}</span>
               </td>
             </tr>
             <tr>
               <th nowrap>郵便番号</th>
               <td>
-                <span v-html="currentEmployee.zipCode"></span>
+                <span>{{ currentEmployee.zipCode }}</span>
               </td>
             </tr>
             <tr>
               <th nowrap>住所</th>
               <td>
-                <span v-html="currentEmployee.address"></span>
+                <span>{{ currentEmployee.address }}</span>
               </td>
             </tr>
             <tr>
               <th nowrap>電話番号</th>
               <td>
-                <span v-html="currentEmployee.telephone"></span>
+                <span>{{ currentEmployee.telephone }}</span>
               </td>
             </tr>
             <tr>
               <th nowrap>給料</th>
-              <td><span v-html="currentEmployee.salary"></span>円</td>
+              <td>
+                <span>{{ currentEmployee.salary }}</span
+                >円
+              </td>
             </tr>
             <tr>
               <th nowrap>特性</th>
               <td>
-                <span v-html="currentEmployee.characteristics"></span>
+                <span>{{ currentEmployee.characteristics }}</span>
               </td>
             </tr>
             <tr>
@@ -153,7 +158,7 @@ export default class EmployeeDetail extends Vue {
 
     // 今取得した従業員情報から画像パスを取り出し、imgディレクトリの名前を前に付与(文字列連結)してcurrentEmployeeImage属性に代入する
     this.currentEmployeeImage = `${config.EMP_WEBAPI_URL}/img/${this.currentEmployee.image}`;
-    
+
     // 今取得した従業員情報から扶養人数を取り出し、currentDependentsCount属性に代入する
     this.currentDependentsCount = this.currentEmployee.dependentsCount;
   }

@@ -4,7 +4,9 @@
     <nav>
       <div class="nav-wrapper">
         <div class="col s12 teal">
-          <a class="breadcrumb">従業員リスト</a>
+          <router-link to="/employeeList" class="breadcrumb"
+            >従業員リスト</router-link
+          >
           <a class="breadcrumb">従業員詳細</a>
         </div>
       </div>

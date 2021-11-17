@@ -3,6 +3,7 @@
     <div class="row login-page">
       <div class="col s12 z-depth-6 card-panel">
         <form class="login-form">
+          <span class="error">{{ errorMessage }}</span>
           <div class="row"></div>
           <div class="row">
             <div class="input-field col s12">
@@ -65,6 +66,8 @@ export default class LoginAdmin extends Vue {
   private mailAddress = "";
   // パスワード
   private password = "";
+  //ログイン失敗時のエラーメッセージ
+  private errorMessage = "";
 
   /**
    * ログインする.
@@ -80,6 +83,12 @@ export default class LoginAdmin extends Vue {
     });
     console.dir("response:" + JSON.stringify(response));
 
+    if (response.data.status === "error") {
+      this.errorMessage = "ログインに失敗しました";
+      this.$router.push("/loginAdmin");
+      return;
+    }
+
     // 従業員一覧に遷移する
     this.$router.push("/employeeList");
   }
@@ -89,5 +98,8 @@ export default class LoginAdmin extends Vue {
 <style scoped>
 .login-page {
   width: 600px;
+}
+.error {
+  color: red;
 }
 </style>

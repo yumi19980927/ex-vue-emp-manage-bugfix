@@ -34,7 +34,7 @@
             </tr>
             <tr>
               <th nowrap>入社日</th>
-              <td><span v-html="currentEmployee.hireDate"></span></td>
+              <td><span v-html="currentEmployee.formatDate"></span></td>
             </tr>
             <tr>
               <th nowrap>メールアドレス</th>
@@ -153,7 +153,7 @@ export default class EmployeeDetail extends Vue {
 
     // 今取得した従業員情報から画像パスを取り出し、imgディレクトリの名前を前に付与(文字列連結)してcurrentEmployeeImage属性に代入する
     this.currentEmployeeImage = `${config.EMP_WEBAPI_URL}/img/${this.currentEmployee.image}`;
-    
+
     // 今取得した従業員情報から扶養人数を取り出し、currentDependentsCount属性に代入する
     this.currentDependentsCount = this.currentEmployee.dependentsCount;
   }

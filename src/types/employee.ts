@@ -32,6 +32,11 @@ export class Employee {
     private _dependentsCount: number
   ) {}
 
+  get commaSalary(): string {
+    const formatSalary = this.salary;
+    return formatSalary.toLocaleString();
+  }
+
   public get id(): number {
     return this._id;
   }

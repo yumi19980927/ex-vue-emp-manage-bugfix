@@ -50,6 +50,20 @@
           </div>
         </div>
         <div class="row">
+          <span class="error">{{ checkPassMessage }}</span>
+          <div class="input-field col s12">
+            <input
+              id="checkPass"
+              type="password"
+              class="validate"
+              minlength="8"
+              v-model="checkPass"
+              required
+            />
+            <label for="checkPass">確認用パスワード</label>
+          </div>
+        </div>
+        <div class="row">
           <div class="input-field col s6">
             <button
               class="btn btn-large btn-register waves-effect waves-light"
@@ -84,7 +98,10 @@ export default class RegisterAdmin extends Vue {
   private mailAddress = "";
   // パスワード
   private password = "";
-
+  //確認用パスワード
+  private checkPass = "";
+  // 確認パスエラーメッセージ
+  private checkPassMessage = "";
   /**
    * 管理者情報を登録する.
    *
@@ -93,6 +110,10 @@ export default class RegisterAdmin extends Vue {
    * @returns Promiseオブジェクト
    */
   async registerAdmin(): Promise<void> {
+    if (this.password != this.checkPass) {
+      this.checkPassMessage = "パスワードが一致しません";
+      return;
+    }
     // 管理者登録処理
     const response = await axios.post(`${config.EMP_WEBAPI_URL}/insert`, {
       name: this.lastName + " " + this.firstName,
@@ -109,5 +130,8 @@ export default class RegisterAdmin extends Vue {
 <style scoped>
 .register-page {
   width: 600px;
+}
+.error {
+  color: red;
 }
 </style>

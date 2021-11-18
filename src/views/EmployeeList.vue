@@ -8,6 +8,19 @@
         </div>
       </div>
     </nav>
+    <div class="searchForm">
+      <form>
+        <span class="error">{{ searchErrorMessage }}</span>
+        <input type="text" v-model="name" />
+        <button
+          type="button"
+          v-on:click="aboutSearch"
+          class="waves-effect waves-light btn-small"
+        >
+          検索
+        </button>
+      </form>
+    </div>
     <div>従業員数:{{ getEmployeeCount }}人</div>
     <div class="row">
       <table class="striped">
@@ -47,6 +60,10 @@ export default class EmployeeList extends Vue {
   private currentEmployeeList: Array<Employee> = [];
   // 従業員数
   private employeeCount = 0;
+  //検索欄に入力された文字列
+  private name = "";
+  //検索欄に入力した文字列が存在しなかった場合のエラーメッセージ
+  private searchErrorMessage = "";
 
   /**
    * Vuexストアのアクション経由で非同期でWebAPIから従業員一覧を取得する.
@@ -74,6 +91,22 @@ export default class EmployeeList extends Vue {
   get getEmployeeCount(): number {
     return this.currentEmployeeList.length;
   }
+  /**
+   * 曖昧検索フォームで検索された従業員を一覧で返す.
+   */
+  aboutSearch(): void {
+    this.searchErrorMessage = "";
+
+    this.currentEmployeeList = this["$store"].getters.getSearchEmployeeByName(
+      this.name
+    );
+    console.log("name:" + this.currentEmployeeList.length);
+
+    if (this.currentEmployeeList.length == 0) {
+      this.searchErrorMessage = "１件もありませんでしたので全件表示します";
+      return (this.currentEmployeeList = this.$store.getters.getAllEmployees);
+    }
+  }
 }
 </script>
 
@@ -84,9 +117,17 @@ export default class EmployeeList extends Vue {
   margin: 0 auto;
 }
 
+form {
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
 .searchBtn {
   display: block;
   width: 150px;
   margin: 0 auto;
+}
+.error {
+  color: red;
 }
 </style>

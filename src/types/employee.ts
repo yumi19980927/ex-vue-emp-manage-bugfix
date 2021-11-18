@@ -34,6 +34,11 @@ export class Employee {
     private _dependentsCount: number
   ) {}
 
+  get formatSalary(): string {
+    const formatSalary = this.salary;
+    return formatSalary.toLocaleString();
+  }
+  
   get formatDate(): string {
     const formatHireDay = format(this.hireDate, "yyyy年MM月dd日");
     return formatHireDay;

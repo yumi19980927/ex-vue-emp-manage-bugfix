@@ -147,10 +147,10 @@ export default class RegisterAdmin extends Vue {
       this.checkPassMessage = "パスワードが一致しません";
       hasErrors = true;
     }
-　　　　　　　　if (hasErrors == true) {
+    if (hasErrors == true) {
       return;
     }
-    
+
     // 管理者登録処理
     const response = await axios.post(`${config.EMP_WEBAPI_URL}/insert`, {
       name: this.lastName + " " + this.firstName,

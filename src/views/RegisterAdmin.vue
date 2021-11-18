@@ -2,8 +2,10 @@
   <div class="container">
     <div class="row register-page">
       <form class="col s12" id="reg-form">
+        <span class="error">{{ emailError }}</span>
         <div class="row">
           <div class="input-field col s6">
+            <span class="errorMessage">{{ errorLastName }} </span>
             <input
               id="last_name"
               type="text"
@@ -14,6 +16,7 @@
             <label for="last_name">姓</label>
           </div>
           <div class="input-field col s6">
+            <span class="errorMessage">{{ errorFirstName }} </span>
             <input
               id="first_name"
               type="text"
@@ -26,6 +29,7 @@
         </div>
         <div class="row">
           <div class="input-field col s12">
+            <span class="errorMessage">{{ errorMailaddress }} </span>
             <input
               id="email"
               type="email"
@@ -38,6 +42,7 @@
         </div>
         <div class="row">
           <div class="input-field col s12">
+            <span class="errorMessage">{{ errorPass }} </span>
             <input
               id="password"
               type="password"
@@ -47,6 +52,20 @@
               required
             />
             <label for="password">パスワード</label>
+          </div>
+        </div>
+        <div class="row">
+          <span class="error">{{ checkPassMessage }}</span>
+          <div class="input-field col s12">
+            <input
+              id="checkPass"
+              type="password"
+              class="validate"
+              minlength="8"
+              v-model="checkPass"
+              required
+            />
+            <label for="checkPass">確認用パスワード</label>
           </div>
         </div>
         <div class="row">
@@ -78,12 +97,26 @@ import axios from "axios";
 export default class RegisterAdmin extends Vue {
   // 姓
   private lastName = "";
+  //姓未入力時のエラーメッセージ
+  private errorLastName = "";
   // 名
   private firstName = "";
+  //名未入力時のエラーメッセージ
+  private errorFirstName = "";
   // メールアドレス
   private mailAddress = "";
+  //メールアドレス未入力時のエラーメッセージ
+  private errorMailaddress = "";
   // パスワード
   private password = "";
+  //email重複のエラーメッセージ
+  private emailError = "";
+  //パスワード未入力時のエラーメッセージ
+  private errorPass = "";
+  //確認用パスワード
+  private checkPass = "";
+  // 確認パスエラーメッセージ
+  private checkPassMessage = "";
 
   /**
    * 管理者情報を登録する.
@@ -93,6 +126,31 @@ export default class RegisterAdmin extends Vue {
    * @returns Promiseオブジェクト
    */
   async registerAdmin(): Promise<void> {
+    let hasErrors = false;
+    if (this.lastName === "") {
+      this.errorLastName = "姓を入力してください";
+      hasErrors = true;
+    }
+    if (this.firstName === "") {
+      this.errorFirstName = "名を入力してください";
+      hasErrors = true;
+    }
+    if (this.mailAddress === "") {
+      this.errorMailaddress = "メールアドレスを入力してください";
+      hasErrors = true;
+    }
+    if (this.password === "") {
+      this.errorPass = "パスワードを入力してください";
+      hasErrors = true;
+    }
+    if (this.password != this.checkPass) {
+      this.checkPassMessage = "パスワードが一致しません";
+      hasErrors = true;
+    }
+　　　　　　　　if (hasErrors == true) {
+      return;
+    }
+    
     // 管理者登録処理
     const response = await axios.post(`${config.EMP_WEBAPI_URL}/insert`, {
       name: this.lastName + " " + this.firstName,
@@ -100,6 +158,11 @@ export default class RegisterAdmin extends Vue {
       password: this.password,
     });
     console.dir("response:" + JSON.stringify(response));
+
+    if (response.data.status === "error") {
+      this.emailError = "登録できませんでした";
+      return;
+    }
 
     this.$router.push("/loginAdmin");
   }
@@ -109,5 +172,9 @@ export default class RegisterAdmin extends Vue {
 <style scoped>
 .register-page {
   width: 600px;
+}
+.error {
+  color: red;
+  font-size: 18px;
 }
 </style>

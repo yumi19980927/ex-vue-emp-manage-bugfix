@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 /**
  * 従業員情報を表すクラス.
  *
@@ -35,6 +37,11 @@ export class Employee {
   get formatSalary(): string {
     const formatSalary = this.salary;
     return formatSalary.toLocaleString();
+  }
+  
+  get formatDate(): string {
+    const formatHireDay = format(this.hireDate, "yyyy年MM月dd日");
+    return formatHireDay;
   }
 
   public get id(): number {

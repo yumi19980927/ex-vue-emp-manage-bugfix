@@ -26,7 +26,7 @@
                 employee.name
               }}</router-link>
             </td>
-            <td>{{ employee.hireDate }}</td>
+            <td>{{ employee.formatDate }}</td>
             <td>{{ employee.dependentsCount }}人</td>
           </tr>
         </tbody>

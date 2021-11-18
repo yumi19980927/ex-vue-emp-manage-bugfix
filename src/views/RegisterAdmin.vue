@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <div class="row register-page">
+      <span class="error">{{ emailError }}</span>
       <form class="col s12" id="reg-form">
-        <span class="error">{{ emailError }}</span>
         <div class="row">
           <div class="input-field col s6">
-            <span class="errorMessage">{{ errorLastName }} </span>
+            <span class="error">{{ errorLastName }} </span>
             <input
               id="last_name"
               type="text"
@@ -16,7 +16,7 @@
             <label for="last_name">姓</label>
           </div>
           <div class="input-field col s6">
-            <span class="errorMessage">{{ errorFirstName }} </span>
+            <span class="error">{{ errorFirstName }} </span>
             <input
               id="first_name"
               type="text"
@@ -29,7 +29,7 @@
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <span class="errorMessage">{{ errorMailaddress }} </span>
+            <span class="error">{{ errorMailaddress }} </span>
             <input
               id="email"
               type="email"
@@ -42,7 +42,7 @@
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <span class="errorMessage">{{ errorPass }} </span>
+            <span class="error">{{ errorPass }} </span>
             <input
               id="password"
               type="password"
@@ -55,8 +55,8 @@
           </div>
         </div>
         <div class="row">
-          <span class="error">{{ checkPassMessage }}</span>
           <div class="input-field col s12">
+            <span class="error">{{ checkPassMessage }}</span>
             <input
               id="checkPass"
               type="password"

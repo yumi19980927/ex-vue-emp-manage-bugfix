@@ -32,7 +32,7 @@ export class Employee {
     private _dependentsCount: number
   ) {}
 
-  get commaSalary(): string {
+  get formatSalary(): string {
     const formatSalary = this.salary;
     return formatSalary.toLocaleString();
   }
